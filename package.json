@@ -4,6 +4,7 @@
   "description": "api backend patasanaWeb",
   "main": "main.js",
   "scripts": {
+    "dev": "nodemon main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,5 +22,12 @@
   "bugs": {
     "url": "https://github.com/juandurso/backend-PastaSanaWEB/issues"
   },
-  "homepage": "https://github.com/juandurso/backend-PastaSanaWEB#readme"
+  "homepage": "https://github.com/juandurso/backend-PastaSanaWEB#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^7.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
 }
