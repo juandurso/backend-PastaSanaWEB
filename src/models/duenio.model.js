@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 
-const pacienteSchema = mongoose.Schema(
+const duenioSchema = mongoose.Schema(
     {
         nombre: {
             type: String,
@@ -9,23 +9,31 @@ const pacienteSchema = mongoose.Schema(
             minLength: 3,
             maxLength: 20
         },
-        especie: {
+        apellido: {
             type: String,
             required: true,
             trim: true,
             minLength: 3,
             maxLength: 20
         },
-        raza: {
+        email: {
             type: String,
             required: true,
             trim: true,
-            minLength: 3,
-            maxLength: 20
+            unique: true,
+            minLength: 8,
+            maxLength: 64
+        },
+        telefono: {
+            type: Number,
+            required: true,
+            trim: true,
+            minLength: 8,
+            maxLength: 13,
         }
     }
 )
 
-const Pacientes = mongoose.model('Pacientes', pacienteSchema)
+const Duenios = mongoose.model('Duenios', duenioSchema)
 
-module.exports = Pacientes
+module.exports = Duenios
