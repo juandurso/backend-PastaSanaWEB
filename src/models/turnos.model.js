@@ -12,10 +12,15 @@ const turnoSchema = mongoose.Schema(
             required: true,
             trim: true
         },
-        mascota: {
-            type: String,
+        idDuenio: {
+            type: mongoose.Schema.Types.ObjectId,
             required: true,
-            trim: true
+            ref: 'Duenios'
+        },
+        idPaciente: {
+            type: mongoose.Schema.Types.ObjectId,
+            required: true,
+            ref: 'Pacientes'
         },
         fecha: {
             type: Date,

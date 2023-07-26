@@ -3,19 +3,18 @@ const mongoose = require("mongoose");
 const turnosRouter = require("./src/routes/turno.route")
 const Usuario = require("./src/models/usuario.model");
 const duenioRouter = require("./src/routes/duenio.route");
+const pacienteRouter = require("./src/routes/paciente.route");
 
 
 const app = express();
 const port = 8000;
 app.use(express.json({limit: "5mb"}))
 
-// app.get("/", (req, res) => {
-//   res.json("hola");
-// });
 
 // http://localhost:8000/turnos
 app.use("/turnos", turnosRouter)
 app.use("/duenio", duenioRouter)
+app.use("/paciente", pacienteRouter)
 
 
 mongoose.connect(

@@ -6,11 +6,19 @@ const {
   buscarDuenioById,
   findAllDuenios,
 } = require("../controllers/duenio.controller");
-const { expressValidations } = require("../middlewares/common.validations");
 
-const { body, param } = require("express-validator");
+const { validationResult ,body, param } = require("express-validator");
 
 const duenioRouter = Router();
+
+const expressValidations = (req, res, next) => {
+    const result = validationResult(req);
+    if (!result.isEmpty()) {
+        res.status(400)
+        return res.send({ errors: result.array() });
+    }
+    next()
+}
 
 // CREATE http://localhost:8000/duenio/create
 
@@ -23,7 +31,7 @@ duenioRouter.post(
     body("telefono").notEmpty(),
     // body("description", "Debe mandar un description").notEmpty(),
   ],
-  
+  expressValidations,
   crearDuenio
 );
 
@@ -34,6 +42,7 @@ duenioRouter.get("/find-all", findAllDuenios);
 duenioRouter.get(
   "/find-by-id/:id",
   [param("id").isMongoId().withMessage("Debe mandar un ID valido")],
+  expressValidations,
   buscarDuenioById
 );
 
@@ -42,11 +51,12 @@ duenioRouter.put(
   "/update-by-id/:id",
   [
     param("id").isMongoId().withMessage("Debe mandar un ID valido"),
-    body("nombre").isString().withMessage("Debe mandar un nombre"),
-    body("apellido").isString().withMessage("Debe mandar un apellido"),
-    body("email").isEmail().withMessage("debe mandar un email valido"),
-    body("telefono").isNumeric().withMessage("debe mandar un telefono valido"),
+    body("nombre").optional().isString().withMessage("Debe mandar un nombre"),
+    body("apellido").optional().isString().withMessage("Debe mandar un apellido"),
+    body("email").optional().isEmail().withMessage("debe mandar un email valido"),
+    body("telefono").optional().isNumeric().withMessage("debe mandar un telefono valido"),
   ],
+  expressValidations,
   actualizarDuenioById
 );
 
@@ -54,7 +64,9 @@ duenioRouter.put(
 duenioRouter.delete(
     "/delete-by-id/:id",
     [param("id").isMongoId().withMessage("Debe mandar un ID valido")],
+    expressValidations,
     borrarDuenioById
+
   );
 
 module.exports = duenioRouter;

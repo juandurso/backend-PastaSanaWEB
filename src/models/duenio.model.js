@@ -30,6 +30,7 @@ const duenioSchema = mongoose.Schema(
             trim: true,
             minLength: 8,
             maxLength: 13,
+            unique:false
         }
     }
 )
