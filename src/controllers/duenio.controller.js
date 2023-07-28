@@ -5,6 +5,7 @@ const crearDuenio = async (req, res) => {
     const duenio = new Duenio({
       nombre: req.body.nombre,
       apellido: req.body.apellido,
+      dni:req.body.dni,
       email: req.body.email,
       telefono: req.body.telefono,
     });
@@ -18,13 +19,13 @@ const crearDuenio = async (req, res) => {
 const findAllDuenios = async (req, res) => {
   try {
     const nombreRegex = new RegExp(req.query.nombre, "i");
-    const emailRegex = new RegExp(req.query.email, "i");
+    const dniRegex = new RegExp(req.query.dni, "i");
     const filters = {
       nombre: {
         $regex: nombreRegex,
       },
-      email: {
-        $regex: emailRegex,
+      dni: {
+        $regex: dniRegex,
       },
     };
     const duenio = await Duenio.find(filters);

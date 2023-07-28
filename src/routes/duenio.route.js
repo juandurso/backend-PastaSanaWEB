@@ -27,9 +27,9 @@ duenioRouter.post(
   [
     body("nombre").notEmpty().withMessage("Debe mandar un nombre"),
     body("apellido").notEmpty().withMessage("Debe mandar un apellido"),
-    body("email").notEmpty().isEmail(),
-    body("telefono").notEmpty(),
-    // body("description", "Debe mandar un description").notEmpty(),
+    body("dni").notEmpty().isNumeric().withMessage("debe mandar un dni valido"),
+    body("email").notEmpty().isEmail().withMessage("debe mandar un email valido"),
+    body("telefono").notEmpty().isNumeric().withMessage("debe mandar un telefono valido"),
   ],
   expressValidations,
   crearDuenio
@@ -53,6 +53,7 @@ duenioRouter.put(
     param("id").isMongoId().withMessage("Debe mandar un ID valido"),
     body("nombre").optional().isString().withMessage("Debe mandar un nombre"),
     body("apellido").optional().isString().withMessage("Debe mandar un apellido"),
+    body("dni").optional().notEmpty().isNumeric().withMessage("debe mandar un dni valido"),
     body("email").optional().isEmail().withMessage("debe mandar un email valido"),
     body("telefono").optional().isNumeric().withMessage("debe mandar un telefono valido"),
   ],
@@ -66,7 +67,7 @@ duenioRouter.delete(
     [param("id").isMongoId().withMessage("Debe mandar un ID valido")],
     expressValidations,
     borrarDuenioById
-
+    
   );
 
 module.exports = duenioRouter;
