@@ -43,7 +43,6 @@ const usuarioSchema = mongoose.Schema(
             type: Number,
             required: true,
             trim: true,
-            unique: true,
             minLength: 8,
             maxLength: 13
         },

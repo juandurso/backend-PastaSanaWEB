@@ -63,6 +63,7 @@ const actualizarDuenioById = async (req, res) => {
     await Duenio.findByIdAndUpdate(req.params.id, {
       nombre: req.body.nombre,
       apellido: req.body.apellido,
+      dni:req.body.dni,
       email: req.body.email,
       telefono: req.body.telefono,
     });

@@ -70,4 +70,3 @@ pacienteRouter.delete(
 );
 
 module.exports = pacienteRouter;
-
