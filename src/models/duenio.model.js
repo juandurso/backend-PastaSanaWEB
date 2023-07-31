@@ -16,7 +16,7 @@ const duenioSchema = mongoose.Schema({
     maxLength: 20,
   },
   dni: {
-    type: Number,
+    type: String,
     required: true,
     trim: true,
     minLength: 8,

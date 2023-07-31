@@ -31,8 +31,10 @@ const findAllDuenios = async (req, res) => {
     const duenio = await Duenio.find(filters);
 
     res.json({ message: "duenio encontrado/s", data: duenio });
-  } catch (error) {
-    res.status(500).json({ massage: "algo salio mal" });
+  } catch (error) { 
+    console.log(error)
+    
+    res.status(500).json({ massage: "algo salio mal!" });
   }
 };
 

@@ -5,6 +5,7 @@ const crearPaciente = async (req, res) => {
     nombre: req.body.nombre,
     especie: req.body.especie,
     raza: req.body.raza,
+    idDuenio:req.body.idDuenio
   });
   await paciente.save();
   res.status(201).json({ message: `paciente registrado ${req.body.nombre}` });

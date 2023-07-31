@@ -9,6 +9,11 @@ const pacienteSchema = mongoose.Schema(
             minLength: 3,
             maxLength: 20
         },
+        idDuenio: {
+            type: mongoose.Schema.Types.ObjectId,
+            required: true,
+            ref: 'Duenios'
+        },
         especie: {
             type: String,
             required: true,
