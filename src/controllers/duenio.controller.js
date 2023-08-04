@@ -5,13 +5,15 @@ const crearDuenio = async (req, res) => {
     const duenio = new Duenio({
       nombre: req.body.nombre,
       apellido: req.body.apellido,
-      dni:req.body.dni,
+      dni: req.body.dni,
       email: req.body.email,
       telefono: req.body.telefono,
+      pacientes: [],
     });
     await duenio.save();
-    res.status(201).json({ message: `duenio registrado ${req.body.nombre}` });
+    res.status(201).json(duenio);
   } catch (error) {
+    console.log(error);
     res.status(500).json({ massage: "algo salio mal" });
   }
 };
@@ -31,16 +33,16 @@ const findAllDuenios = async (req, res) => {
     const duenio = await Duenio.find(filters);
 
     res.json({ message: "duenio encontrado/s", data: duenio });
-  } catch (error) { 
-    console.log(error)
-    
+  } catch (error) {
+    console.log(error);
+
     res.status(500).json({ massage: "algo salio mal!" });
   }
 };
 
 const buscarDuenioById = async (req, res) => {
   try {
-    const duenio = await Duenio.findById(req.params.id);
+    const duenio = await Duenio.findById(req.params.id).populate("pacientes");
 
     if (duenio === null) {
       res.status(404);
@@ -65,7 +67,7 @@ const actualizarDuenioById = async (req, res) => {
     await Duenio.findByIdAndUpdate(req.params.id, {
       nombre: req.body.nombre,
       apellido: req.body.apellido,
-      dni:req.body.dni,
+      dni: req.body.dni,
       email: req.body.email,
       telefono: req.body.telefono,
     });

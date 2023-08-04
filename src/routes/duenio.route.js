@@ -7,18 +7,18 @@ const {
   findAllDuenios,
 } = require("../controllers/duenio.controller");
 
-const { validationResult ,body, param } = require("express-validator");
+const { validationResult, body, param } = require("express-validator");
 
 const duenioRouter = Router();
 
 const expressValidations = (req, res, next) => {
-    const result = validationResult(req);
-    if (!result.isEmpty()) {
-        res.status(400)
-        return res.send({ errors: result.array() });
-    }
-    next()
-}
+  const result = validationResult(req);
+  if (!result.isEmpty()) {
+    res.status(400);
+    return res.send({ errors: result.array() });
+  }
+  next();
+};
 
 // CREATE http://localhost:8000/duenio/create
 
@@ -28,8 +28,14 @@ duenioRouter.post(
     body("nombre").notEmpty().withMessage("Debe mandar un nombre"),
     body("apellido").notEmpty().withMessage("Debe mandar un apellido"),
     body("dni").notEmpty().isNumeric().withMessage("debe mandar un dni valido"),
-    body("email").notEmpty().isEmail().withMessage("debe mandar un email valido"),
-    body("telefono").notEmpty().isNumeric().withMessage("debe mandar un telefono valido"),
+    body("email")
+      .notEmpty()
+      .isEmail()
+      .withMessage("debe mandar un email valido"),
+    body("telefono")
+      .notEmpty()
+      .isNumeric()
+      .withMessage("debe mandar un telefono valido"),
   ],
   expressValidations,
   crearDuenio
@@ -52,10 +58,23 @@ duenioRouter.put(
   [
     param("id").isMongoId().withMessage("Debe mandar un ID valido"),
     body("nombre").optional().isString().withMessage("Debe mandar un nombre"),
-    body("apellido").optional().isString().withMessage("Debe mandar un apellido"),
-    body("dni").optional().notEmpty().isNumeric().withMessage("debe mandar un dni valido"),
-    body("email").optional().isEmail().withMessage("debe mandar un email valido"),
-    body("telefono").optional().isNumeric().withMessage("debe mandar un telefono valido"),
+    body("apellido")
+      .optional()
+      .isString()
+      .withMessage("Debe mandar un apellido"),
+    body("dni")
+      .optional()
+      .notEmpty()
+      .isNumeric()
+      .withMessage("debe mandar un dni valido"),
+    body("email")
+      .optional()
+      .isEmail()
+      .withMessage("debe mandar un email valido"),
+    body("telefono")
+      .optional()
+      .isNumeric()
+      .withMessage("debe mandar un telefono valido"),
   ],
   expressValidations,
   actualizarDuenioById
@@ -63,11 +82,10 @@ duenioRouter.put(
 
 // DELETE http://localhost:8000/duenio/delete-by-id/:id
 duenioRouter.delete(
-    "/delete-by-id/:id",
-    [param("id").isMongoId().withMessage("Debe mandar un ID valido")],
-    expressValidations,
-    borrarDuenioById
-    
-  );
+  "/delete-by-id/:id",
+  [param("id").isMongoId().withMessage("Debe mandar un ID valido")],
+  expressValidations,
+  borrarDuenioById
+);
 
 module.exports = duenioRouter;

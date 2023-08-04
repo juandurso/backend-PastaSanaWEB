@@ -61,7 +61,7 @@ pacienteRouter.put(
   actualizarPacienteById
 );
 
-// DELETE http://localhost:8000/duenio/delete-by-id/:id
+// DELETE http://localhost:8000/paciente/delete-by-id/:id
 pacienteRouter.delete(
   "/delete-by-id/:id",
   [param("id").isMongoId().withMessage("Debe mandar un ID valido")],

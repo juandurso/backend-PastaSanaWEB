@@ -38,6 +38,12 @@ const duenioSchema = mongoose.Schema({
     maxLength: 13,
     unique: false,
   },
+  pacientes: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Pacientes",
+    },
+  ],
 });
 
 const Duenios = mongoose.model("Duenios", duenioSchema);

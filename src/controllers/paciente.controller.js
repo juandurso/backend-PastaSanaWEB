@@ -1,14 +1,31 @@
 const Paciente = require("../models/paciente.model");
+const Duenio = require("../models/duenio.model");
 
 const crearPaciente = async (req, res) => {
-  const paciente = new Paciente({
-    nombre: req.body.nombre,
-    especie: req.body.especie,
-    raza: req.body.raza,
-    idDuenio:req.body.idDuenio
-  });
-  await paciente.save();
-  res.status(201).json({ message: `paciente registrado ${req.body.nombre}` });
+  try {
+    const duenioExiste = await Duenio.findById(req.body.idDuenio);
+
+    if (!duenioExiste)
+      return res.status(404).json({ message: "No existe el duenio" });
+
+    const paciente = new Paciente({
+      nombre: req.body.nombre,
+      especie: req.body.especie,
+      raza: req.body.raza,
+    });
+    await paciente.save();
+
+    await Duenio.findByIdAndUpdate(
+      req.body.idDuenio,
+      { $push: { pacientes: paciente._id } },
+      { new: true }
+    );
+
+    res.status(201).json(paciente);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ massage: "algo salio mal!" });
+  }
 };
 
 const findAllPacientes = async (req, res) => {
@@ -28,7 +45,7 @@ const findAllPacientes = async (req, res) => {
 };
 
 const buscarPacienteById = async (req, res) => {
-  const paciente = await Paciente.findById(req.params.id);
+  const paciente = await Paciente.findById(req.params.id).populate("turnos");
 
   if (paciente === null) {
     res.status(404);
@@ -74,5 +91,5 @@ module.exports = {
   findAllPacientes,
   buscarPacienteById,
   actualizarPacienteById,
-  borrarPacienteById
+  borrarPacienteById,
 };
