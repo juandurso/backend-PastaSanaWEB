@@ -38,16 +38,15 @@ authRouter.post(
 
 // http://localhost:8000/auth/login
 authRouter.post(
-    "/login",
-    [
-        check('username', "Debe mandar nombre de usuario").notEmpty(),
-        check('username', "Debe ser alphanumerico").isAlphanumeric(),
-        check('password', "Debe mandar password de usuario").notEmpty(),
-        check('password', "Debe ser alphanumerico").isAlphanumeric(),
-    ],
-    expressValidations,
-    loginUser
-)
-
+  "/login",
+  [
+    check("username", "Debe mandar nombre de usuario").notEmpty(),
+    check("username", "Debe ser alphanumerico").isAlphanumeric(),
+    check("password", "Debe mandar password de usuario").notEmpty(),
+    check("password", "Debe ser alphanumerico").isAlphanumeric(),
+  ],
+  expressValidations,
+  loginUser
+);
 
 module.exports = authRouter;
