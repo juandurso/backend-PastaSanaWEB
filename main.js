@@ -6,15 +6,15 @@ const duenioRouter = require("./src/routes/duenio.route");
 const pacienteRouter = require("./src/routes/paciente.route");
 const authRouter = require("./src/routes/auth.route");
 const bcrypt = require("bcrypt");
-const cors = require("cors")
-const dotenv = require("dotenv")
+const cors = require("cors");
+const dotenv = require("dotenv");
 
-dotenv.config()
+dotenv.config();
 
 const app = express();
 const port = process.env.PORT;
 app.use(express.json({ limit: "5mb" }));
-app.use(cors())
+app.use(cors());
 
 // http://localhost:8000/turnos
 app.use("/turnos", turnosRouter);
@@ -22,10 +22,9 @@ app.use("/duenio", duenioRouter);
 app.use("/paciente", pacienteRouter);
 app.use("/auth", authRouter);
 
+console.log(process.env.MONGO_URI);
 mongoose
-  .connect(
-    process.env.MONGO_URI
-  )
+  .connect(process.env.MONGO_URI)
   .then(() => {
     console.log("conectado a la DB");
     Usuario.find().then((usuarios) => {
