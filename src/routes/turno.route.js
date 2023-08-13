@@ -30,7 +30,13 @@ turnosRouter.post(
     body("veterinario")
       .notEmpty()
       .withMessage("Debe manda el veterinario asociado"),
-    body("fecha").notEmpty().isDate().withMessage("debe enviar una fecha"),
+      body("fecha")
+      .notEmpty()
+      .isString()
+      .matches(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/)
+      .withMessage('El formato de fecha y hora debe ser YYYY-MM-DDTHH:mm')
+      .withMessage("debe mandar una fecha valida"),
+
   ],
   expressValidations,
   crearTurno
@@ -52,7 +58,7 @@ turnosRouter.put(
   "/update-by-id/:id",
   [
     param("id").isMongoId().withMessage("Debe mandar un ID valido"),
-    body("descripcion")
+    body("detalle")
       .optional()
       .isString()
       .withMessage("Debe mandar una descripcion"),
@@ -62,8 +68,11 @@ turnosRouter.put(
       .withMessage("Debe mandar un veterinario"),
     body("fecha")
       .optional()
-      .isDate()
+      .isString()
+      .matches(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/)
+      .withMessage('El formato de fecha y hora debe ser YYYY-MM-DDTHH:mm')
       .withMessage("debe mandar una fecha valida"),
+      
   ],
   expressValidations,
   actualizarTurnoById

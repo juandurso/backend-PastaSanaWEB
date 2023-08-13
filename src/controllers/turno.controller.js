@@ -1,5 +1,6 @@
 const Turnos = require("../models/turnos.model");
 const Paciente = require("../models/paciente.model");
+const { dateFormateado } = require("../utils/date.utils");
 
 const crearTurno = async (req, res) => {
   try {
@@ -21,7 +22,7 @@ const crearTurno = async (req, res) => {
       { new: true }
     );
 
-    res.status(201).json(Paciente);
+    res.status(201).json(turno);
   } catch (error) {
     console.log(error);
     res.status(500).json({ massage: "algo salio mal!" });
@@ -69,7 +70,7 @@ const actualizarTurnoById = async (req, res) => {
     }
 
     await Turnos.findByIdAndUpdate(req.params.id, {
-      descipcion: req.body.descipcion,
+      detalle: req.body.detalle,
       veterinario: req.body.veterinario,
       fecha: req.body.fecha,
     });

@@ -83,7 +83,7 @@ const borrarPacienteById = async (req, res) => {
   const filters = { _id: req.params.id };
   await Paciente.deleteOne(filters);
 
-  res.json({ message: `PACIENTE BORRADO ${duenio.nombre}` });
+  res.json({ message: `PACIENTE BORRADO ${paciente.nombre}` });
 };
 
 module.exports = {

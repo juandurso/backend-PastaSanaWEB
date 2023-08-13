@@ -12,6 +12,7 @@ const app = express();
 const port = 8000;
 app.use(express.json({ limit: "5mb" }));
 app.use(cors())
+
 // http://localhost:8000/turnos
 app.use("/turnos", turnosRouter);
 app.use("/duenio", duenioRouter);
