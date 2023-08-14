@@ -28,7 +28,8 @@ const registerUser = async (req, res) => {
 };
 
 const loginUser = async (req, res) => {
-  const { username, password } = req.body;
+  try {
+    const { username, password } = req.body;
 
   // Existe el usuario?
   const user = await User.findOne({ username });
@@ -62,6 +63,12 @@ const loginUser = async (req, res) => {
   res.json({
     access_token: token,
   });
+  } catch (error) {
+    res.status(500).json({ massage: "algo salio mal" });
+    
+  }
+
+  
 };
 
 module.exports = {
