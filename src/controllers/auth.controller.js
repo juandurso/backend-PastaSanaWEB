@@ -64,6 +64,7 @@ const loginUser = async (req, res) => {
     access_token: token,
   });
   } catch (error) {
+    console.log(error)
     res.status(500).json({ massage: "algo salio mal" });
     
   }
