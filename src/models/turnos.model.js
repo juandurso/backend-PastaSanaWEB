@@ -11,16 +11,6 @@ const turnoSchema = mongoose.Schema({
     required: true,
     trim: true,
   },
-  // idPaciente: {
-  //     type: mongoose.Schema.Types.ObjectId,
-  //     required: true,
-  //     ref: 'Pacientes'
-  // },
-  // idDuenio: {
-  //     type: mongoose.Schema.Types.ObjectId,
-  //     required: true,
-  //     ref: 'Duenios'
-  // },
   fecha: {
     type: Date,
     required: true,
